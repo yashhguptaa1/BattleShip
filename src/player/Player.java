@@ -38,37 +38,6 @@ public class Player implements IPlayer{
 
     }
 
-    public void addShips(String startingPoint,int dim1,int dim2,char type)
-    {
-        int totalLifeOfShip=0;
-        if(type=='P')
-        {
-            totalLifeOfShip=dim1*dim2;
-        }
-        else
-            totalLifeOfShip=dim1*dim2*2;
-
-        countShips.put(startingPoint,totalLifeOfShip);
-    }
-    public void onHit(String startPoint)
-    {
-        int currLifeRemaining=countShips.get(startPoint);
-
-        if(currLifeRemaining==1)
-        {
-            countShips.remove(startPoint);
-        }
-        else
-        {
-            countShips.put(startPoint,currLifeRemaining-1);
-        }
-    }
-
-    public int numberOfShips()
-    {
-        return countShips.size();
-    }
-
     @Override
     public void placeShips(List<ShipPlacementRequest> requestList) {
         for(ShipPlacementRequest req: requestList) {

@@ -14,9 +14,6 @@ public class Cell {
         this.ship = ship;
     }
 
-    public void addCoordToShip(int rowNum, int colNum) {
-        ship.addCoordToList(rowNum, colNum);
-    }
 
     public int getValue() {
         return value;
@@ -41,6 +38,10 @@ public class Cell {
         this.value = strength;
 
         System.out.println("cell is being occupied");
+    }
+
+    public boolean isSunk() {
+        return this.value == 0;
     }
 }
 

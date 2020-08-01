@@ -1,42 +1,40 @@
 package ship;
+import board.Cell;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Ship {
 
-    char type;
-    int strength;
-    String startingPoint;
-    ArrayList<ArrayList<Integer>> ShipCoords;
+//    check why can't we use primitive types here
+//    protected final ShipTypes type;
+//    protected final int strength;
+    protected final Cell startingPoint;
+    ArrayList<Cell> shipCoords;
 
-    Ship()
+    protected Ship( Cell start)
     {
-
+        this.startingPoint = start;
     }
 
-    public Ship(String startingPoint, ArrayList<ArrayList<Integer>> shipCoords) {
-        this.startingPoint = startingPoint;
-        ShipCoords = shipCoords;
-    }
-
-    public void addCoordToList(int x,int y)
-    {
-        ArrayList<Integer>temp=new ArrayList<>();
-        temp.add(x);
-        temp.add(y);
-
-        this.ShipCoords.add(temp);
+    public void setShipCoords(ArrayList<Cell> shipCoords) {
+        this.shipCoords = shipCoords;
     }
 
     public boolean isSunk() {
-        return true;
+        boolean result = true;
+        for(Cell cell: shipCoords) {
+            if(!cell.isSunk()) {
+                result = false;
+                return result;
+            }
+        }
+        return result;
     }
 
-    public void occupiedOrNot()
+    public List<Cell> getOccupiedCells()
     {
-
+        return shipCoords;
     }
-
-    abstract public void setType();
-    abstract public void setStrength();
 
 }
