@@ -1,5 +1,9 @@
 package board;
+import common.ShipPlacementRequest;
+
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class BattleGround {
 
@@ -55,6 +59,72 @@ public class BattleGround {
 
     }
 
+    public void placeShip(ShipPlacementRequest placementRequest) {
 
+        Cell startingPoint = placementRequest.getStartingPoint();
+        int width = placementRequest.getWidth();
+        int height = placementRequest.getHeight();
+
+        checkBounds(startingPoint, width, height);
+
+        List<Cell>placingCells = checkCellToBeOccupied(placementRequest);
+        int strength = 0;
+
+        switch (placementRequest.getShipType()) {
+            case 1:
+                strength = 1;
+                break;
+            case 2:
+                strength = 2;
+                break;
+            default:
+                strength =0;
+        }
+        placeshipOnBoard(placingCells, strength);
+    }
+
+    private void checkBounds(Cell startingPoint, int width, int height) {
+
+        if(width >= numCols || height >= numRows) {
+            throw new RuntimeException("ship dimension out of bounds");
+        }
+
+        if(startingPoint.col + width >= numCols || startingPoint.row + height>= numRows) {
+            throw new RuntimeException("ship cannot be placed at this cell");
+        }
+    }
+
+    private List<Cell> checkCellToBeOccupied(ShipPlacementRequest placementRequest) {
+
+        List<Cell> cellToBeOccupied = new ArrayList<>();
+
+        Cell startingPoint = placementRequest.getStartingPoint();
+        int width = placementRequest.getWidth();
+        int height = placementRequest.getHeight();
+
+        for(int i = startingPoint.row; i< height; i++) {
+            for(int j = startingPoint.col; j<width; j++) {
+                Cell cell = Ground.get(i).get(j);
+
+                if(cell.isOccupied()) {
+                    throw new RuntimeException("cell is occupied so ship can't be placed");
+                } else {
+                    cellToBeOccupied.add(cell);
+                }
+            }
+        }
+
+        return cellToBeOccupied;
+    }
+
+    private void placeshipOnBoard(List<Cell> placingCells, int strength) {
+
+        Iterator it = placingCells.iterator();
+
+        while (it.hasNext()) {
+            Cell cell = (Cell) it.next();
+            cell.occupy(strength);
+        }
+    }
 
 }

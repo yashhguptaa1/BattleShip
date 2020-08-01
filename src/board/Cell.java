@@ -46,4 +46,11 @@ public class Cell {
     public void setType(char type) {
         this.type = type;
     }
+
+    public void occupy(int strength) {
+        this.occupied = true;
+        this.value = strength;
+
+        System.out.println("cell is being occupied");
+    }
 }
