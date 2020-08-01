@@ -2,6 +2,7 @@ package player;
 
 import board.Cell;
 import common.ShipPlacementRequest;
+import enums.Outcome;
 
 import java.util.List;
 
@@ -10,7 +11,11 @@ public interface IPlayer {
 
     void getNextTarget(Cell target);
 
-    String checkOutcome(Cell hit);
+    Outcome checkOutcome(Cell hit);
 
     void checkStatus();
+
+    String getName();
+
+    boolean checkAllShipsSunk();
 }

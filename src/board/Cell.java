@@ -6,6 +6,7 @@ public class Cell {
 
     int value;
     boolean occupied;
+    String name;
     Ship ship;
     int row;
     int col;
@@ -56,6 +57,14 @@ public class Cell {
         this.col = col;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void occupy(int strength) {
         this.occupied = true;
         this.value = strength;
@@ -65,6 +74,14 @@ public class Cell {
 
     public boolean isSunk() {
         return this.value == 0;
+    }
+
+    public boolean isHit() {
+        if(occupied && value>0){
+            value --;
+            return true;
+        }
+        return false;
     }
 }
 

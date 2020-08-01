@@ -1,4 +1,4 @@
-package ship;
+package enums;
 
 public enum ShipTypes {
     P(1),Q(2);

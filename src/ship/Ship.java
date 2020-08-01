@@ -10,14 +10,14 @@ public abstract class Ship {
 //    protected final ShipTypes type;
 //    protected final int strength;
     protected final Cell startingPoint;
-    ArrayList<Cell> shipCoords;
+    List<Cell> shipCoords;
 
     protected Ship( Cell start)
     {
         this.startingPoint = start;
     }
 
-    public void setShipCoords(ArrayList<Cell> shipCoords) {
+    public void setShipCoords(List<Cell> shipCoords) {
         this.shipCoords = shipCoords;
     }
 

@@ -1,21 +1,16 @@
 package common;
 
 import board.Cell;
+import enums.ShipTypes;
 
 public class ShipPlacementRequest {
-    char shipType;
+    ShipTypes shipType;
     int width;
     int height;
 
     Cell startingPoint;
 
-    public int getShipType()
-    {
-        if(shipType=='Q')
-            return 2;
-
-        return 1;
-    }
+    public ShipTypes getShipType()   { return  shipType;  }
 
     public void setShipType(char shipType) {
         this.shipType = shipType;

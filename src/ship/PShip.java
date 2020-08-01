@@ -1,6 +1,7 @@
 package ship;
 
 import board.Cell;
+import enums.ShipTypes;
 
 public class PShip extends Ship {
 

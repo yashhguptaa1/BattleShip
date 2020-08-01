@@ -1,5 +1,6 @@
 package board;
 import common.ShipPlacementRequest;
+import ship.Ship;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,30 +37,8 @@ public class BattleGround {
         return curr.value;
 
     }
-    public void setVal(int row,int col){
 
-        Cell curr=Ground[row][col];
-        curr.value--;
-        Ground.get(row).set(col,curr);
-
-    }
-
-    public boolean MakeHit(String guess)
-    {
-        int row=(int)(guess.charAt(0));
-        int col=(int)(guess.charAt(1));
-
-        int currCellVal=getVal(row,col);
-
-        if(currCellVal<=0)
-            return false;
-
-        setVal(row,col);
-        return true;
-
-    }
-
-    public void placeShip(ShipPlacementRequest placementRequest) {
+    public List<Cell> placeShip(ShipPlacementRequest placementRequest) {
 
         Cell startingPoint = placementRequest.getStartingPoint();
         int width = placementRequest.getWidth();
@@ -81,6 +60,8 @@ public class BattleGround {
                 strength =0;
         }
         placeshipOnBoard(placingCells, strength);
+
+        return placingCells;
     }
 
     private void checkBounds(Cell startingPoint, int width, int height) {
