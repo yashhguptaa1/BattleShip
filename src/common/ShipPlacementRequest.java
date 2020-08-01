@@ -3,17 +3,21 @@ package common;
 import board.Cell;
 
 public class ShipPlacementRequest {
-    int shipType;
+    char shipType;
     int width;
     int height;
 
     Cell startingPoint;
 
-    public int getShipType() {
-        return shipType;
+    public int getShipType()
+    {
+        if(shipType=='Q')
+            return 2;
+
+        return 1;
     }
 
-    public void setShipType(int shipType) {
+    public void setShipType(char shipType) {
         this.shipType = shipType;
     }
 
