@@ -8,35 +8,34 @@ import java.util.List;
 
 public class BattleGround {
 
-    int numRows;
-    int numCols;
+    final int numRows;
+    final int numCols;
 
     Cell Ground[][];
 
     public BattleGround(int nr,int nc)
     {
+        this.numRows=nr;
+        this.numCols=nc;
 
         Ground=new Cell[nr][nc];
-       // Ship= new Ship();
         for(int i=0;i<nr;i++)
         {
             for(int j=0;j<nc;j++)
             {
-                Ground[i][j]=(new Cell());
+                StringBuilder name=new StringBuilder("");
+                name.append((char)('A'+i));
+                name.append(String.valueOf(j+1));
+                Ground[i][j]=(new Cell(i,j,name.toString()));
             }
         }
     }
 
-    public Cell getCurrCell(int row,int col){
+
+    public Cell getCurrCell(int row, int col){
         return Ground[row][col];
     }
 
-    public int getVal(int row,int col)
-    {
-        Cell curr=Ground[row][col];
-        return curr.value;
-
-    }
 
     public List<Cell> placeShip(ShipPlacementRequest placementRequest) {
 
@@ -47,13 +46,14 @@ public class BattleGround {
         checkBounds(startingPoint, width, height);
 
         List<Cell>placingCells = checkCellToBeOccupied(placementRequest);
+        //System.out.println(placementRequest);
         int strength = 0;
 
         switch (placementRequest.getShipType()) {
-            case 1:
+            case P:
                 strength = 1;
                 break;
-            case 2:
+            case Q:
                 strength = 2;
                 break;
             default:
@@ -61,16 +61,20 @@ public class BattleGround {
         }
         placeshipOnBoard(placingCells, strength);
 
+       // System.out.println(placingCells);
+
         return placingCells;
     }
 
     private void checkBounds(Cell startingPoint, int width, int height) {
 
+       // System.out.println(startingPoint.getRow()+" "+startingPoint.getCol());
+        //System.out.println(height+" "+width);
         if(width >= numCols || height >= numRows) {
             throw new RuntimeException("ship dimension out of bounds");
         }
 
-        if(startingPoint.getCol() + width >= numCols || startingPoint.getRow() + height>= numRows) {
+        if((startingPoint.getCol()-1) + width >= numCols || (startingPoint.getRow()-1) + height>= numRows) {
             throw new RuntimeException("ship cannot be placed at this cell");
         }
     }
@@ -83,10 +87,15 @@ public class BattleGround {
         int width = placementRequest.getWidth();
         int height = placementRequest.getHeight();
 
-        for(int i = startingPoint.getRow(); i< height; i++) {
-            for(int j = startingPoint.getCol(); j<width; j++) {
-                Cell cell = Ground[i][j];
+       //System.out.println(startingPoint.getRow()+" "+startingPoint.getCol()+" "+height+" "+width);
 
+        for(int i = startingPoint.getRow(); i<startingPoint.getRow()+height; i++) {
+            for(int j = startingPoint.getCol(); j<startingPoint.getRow()+width; j++) {
+
+                //System.out.println(i+" "+j);
+                Cell cell = getCurrCell(i,j);
+
+                //System.out.println(cell.isOccupied());
                 if(cell.isOccupied()) {
                     throw new RuntimeException("cell is occupied so ship can't be placed");
                 } else {
@@ -104,8 +113,14 @@ public class BattleGround {
 
         while (it.hasNext()) {
             Cell cell = (Cell) it.next();
+            //System.out.println(cell.getName());
             cell.occupy(strength);
         }
+
+        //System.out.println(placingCells);
+
+
     }
+
 
 }

@@ -1,6 +1,7 @@
 package ship;
 
 import board.Cell;
+import enums.ShipTypes;
 
 public class QShip extends Ship {
 

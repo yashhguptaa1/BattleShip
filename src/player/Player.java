@@ -21,8 +21,7 @@ public class Player implements IPlayer{
 
     private String playerName;
     private int chanceNumber;
-
-    private ArrayList<String> guesses;
+    private ArrayList<Cell>guesses;
     private ArrayList<Ship> fleet;
     private Set<String> occupiedCells;
     BattleGround ground;
@@ -36,49 +35,53 @@ public class Player implements IPlayer{
         this.occupiedCells  = new HashSet<>();
     }
 
-    public int[] getNext()
-    {
-        String guess=guesses.get(this.chanceNumber);
+    @Override
+    public Cell getNextTarget() {
+
+        if(this.chanceNumber>=guesses.size())
+            return null;
+
+        Cell currGuess=guesses.get(this.chanceNumber);
         this.chanceNumber++;
-        int guessIndex[]=new int[2];
-        guessIndex[0]=(int)(guess.charAt(0)-'A');
-        guessIndex[1]=(int)(guess.charAt(1)-'1');
-        return guessIndex;
+        return currGuess;
     }
 
     @Override
     public void placeShips(List<ShipPlacementRequest> requestList) {
+
         for(ShipPlacementRequest req: requestList) {
             //TODO when there no default constructor how it is allowed
             Ship ship;
             switch (req.getShipType()) {
                 case P:
                     ship = new PShip(req.getStartingPoint());
+                    break;
                 case Q:
                     ship = new QShip(req.getStartingPoint());
+                    break;
                 default:
                     ship = null;
             }
             if(ship != null)
                 fleet.add(ship);
             List<Cell> shipPlacementCells = ground.placeShip(req);
+            //System.out.println("zRequestlist "+shipPlacementCells);
             ship.setShipCoords(shipPlacementCells);
 
             //TODO implement Algo using this
             for(Cell cell: shipPlacementCells) {
                 occupiedCells.add(cell.getName());
             }
+            //System.out.println("occupiedCells "+occupiedCells);
         }
     }
 
-    @Override
-    public void getNextTarget(Cell target) {
-
-    }
 
     @Override
     public Outcome checkOutcome(Cell hit) {
-        if(occupiedCells.contains(hit.getName()) && hit.isHit()) {
+        //System.out.println("From Outcome "+hit.getName()+" "+hit.isHit());
+        Cell currCell=ground.getCurrCell(hit.getRow(),hit.getCol());
+        if(occupiedCells.contains(currCell.getName()) && currCell.isHit()) {
             return Outcome.HIT;
             //return true;
         }
@@ -105,7 +108,8 @@ public class Player implements IPlayer{
         return true;
     }
 
-    public void setGuessList(ArrayList<String>guesses)
+    @Override
+    public void setGuessList(ArrayList<Cell>guesses)
     {
         this.guesses=new ArrayList<>(guesses);
     }

@@ -5,38 +5,30 @@ import enums.ShipTypes;
 
 public class ShipPlacementRequest {
     ShipTypes shipType;
-    int width;
-    int height;
+    private final int width;
+    private final int height;
+    private Cell startingPoint;
 
-    Cell startingPoint;
-
-    public ShipTypes getShipType()   { return  shipType;  }
-
-    public void setShipType(char shipType) {
+    public ShipPlacementRequest(ShipTypes shipType, int height, int width, Cell startingPoint) {
         this.shipType = shipType;
+        this.width = width;
+        this.height = height;
+        this.startingPoint = startingPoint;
     }
+
+    public ShipTypes getShipType()
+    { return  shipType;  }
 
     public int getWidth() {
         return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
     }
 
     public int getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public Cell getStartingPoint() {
         return startingPoint;
     }
-
-    public void setStartingPoint(Cell startingPoint) {
-        this.startingPoint = startingPoint;
-    }
+    
 }

@@ -1,5 +1,6 @@
 import board.Cell;
 import common.ShipPlacementRequest;
+import enums.ShipTypes;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -29,57 +30,51 @@ public class InitialzingGame {
             String ipLine = br.readLine().trim();
             String[] ips = ipLine.split("\\s+");
 
-            char type = ips[0].charAt(0);
-            int dim1 = Integer.parseInt(ips[1]);
-            int dim2 = Integer.parseInt(ips[2]);
+            ShipTypes type;
+            if(ips[0].charAt(0)=='Q')
+                type=ShipTypes.Q;
+            else
+                type=ShipTypes.P;
+
+            int dim2 = Integer.parseInt(ips[1]);
+            int dim1 = Integer.parseInt(ips[2]);
 
             //FOR PLAYER 1
-            int AstartX=(int)(ips[3].charAt(0)-'0');
-            int AstartY=(int)ips[3].charAt(1);
-
-            ShipPlacementRequest plyr1 = new ShipPlacementRequest();
-            plyr1.setHeight(dim1);
-            plyr1.setWidth(dim2);
-            plyr1.setShipType(type);
-            Cell startCell=new Cell();
-            startCell.setRow((int)(ips[3].charAt(0)-'0'));
-            startCell.setCol((int)ips[3].charAt(1));
-            plyr1.setStartingPoint(startCell);
+            int x1=((int)(ips[3].charAt(0)-'A'));
+            int y1=((int)(ips[3].charAt(1)-'1'));
+            // doubt regarding making of new Cell
+            ShipPlacementRequest plyr1 = new ShipPlacementRequest(type,dim1,dim2,new Cell(x1,y1));
             PlacmentsP1.add(plyr1);
 
-
             //FOR PLAYER 2
-            ShipPlacementRequest plyr2 = new ShipPlacementRequest();
-            plyr2.setHeight(dim1);
-            plyr2.setWidth(dim2);
-            plyr2.setShipType(type);
-            Cell begCell=new Cell();
-            begCell.setRow((int)(ips[4].charAt(0)-'0'));
-            begCell.setCol((int)ips[4].charAt(1));
-            plyr1.setStartingPoint(begCell);
+            int x2=((int)(ips[4].charAt(0)-'A'));
+            int y2=((int)(ips[4].charAt(1)-'1'));
+            ShipPlacementRequest plyr2 = new ShipPlacementRequest(type,dim1,dim2,new Cell(x2,y2));
             PlacmentsP2.add(plyr2);
         }
 
         //FOR PLAYER 1
         String P1= br.readLine().trim();
         String[] p1 = P1.split("\\s");
-        ArrayList<String>allGuessesP1=new ArrayList<>();
+        ArrayList<Cell>allGuessesP1=new ArrayList<>();
         for(String s:p1)
         {
-            allGuessesP1.add(s);
+            Cell temp=new Cell(((int)(s.charAt(0)-'A')),((int)(s.charAt(1)-'1')),s);
+            allGuessesP1.add(temp);
         }
 
         //FOR PLAYER 2
         String P2= br.readLine().trim();
         String[] p2 = P2.split("\\s");
-        ArrayList<String>allGuessesP2=new ArrayList<>();
+        ArrayList<Cell>allGuessesP2=new ArrayList<>();
         for(String s:p2)
         {
-            allGuessesP2.add(s);
+            Cell temp=new Cell(((int)(s.charAt(0)-'A')),((int)(s.charAt(1)-'1')),s);
+            allGuessesP2.add(temp);
         }
 
-       // System.out.println(allGuessesP1);
-        //System.out.println(allGuessesP2);
+        //System.out.println(PlacmentsP1.get(0).getHeight());
+        //System.out.println(PlacmentsP1.get(1).getHeight());
 
         Game newGame=new Game();
         newGame.gameInit(nRows,nCols,PlacmentsP1,PlacmentsP2,allGuessesP1,allGuessesP2);

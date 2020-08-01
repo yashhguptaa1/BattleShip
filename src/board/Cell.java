@@ -4,72 +4,54 @@ import ship.Ship;
 
 public class Cell {
 
-    int value;
-    boolean occupied;
-    String name;
+    private String name;
+    private int value;
+    private boolean occupied;
     Ship ship;
-    int row;
-    int col;
+    private final int row;
+    private final int col;
 
-    public Cell ()
+    public Cell (int x,int y,String name)
     {
+        this.row=x;
+        this.col=y;
+        this.name=name;
         this.value = 0;
         this.occupied = false;
 
     }
 
-    public Cell(int value, boolean occupied, Ship ship) {
-        this.value = value;
-        this.occupied = occupied;
-        this.ship = ship;
+    public Cell(int x,int y)
+    {
+        this.row=x;
+        this.col=y;
     }
-
 
     public int getValue() {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public boolean isOccupied() {
-        return occupied;
-    }
-
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
+        return this.occupied;
     }
 
     public int getRow() {
         return row;
     }
 
-    public void setRow(int row) {
-        this.row = row;
-    }
-
     public int getCol() {
         return col;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void occupy(int strength) {
         this.occupied = true;
         this.value = strength;
 
-        System.out.println("cell is being occupied");
+        //System.out.println("cell is being occupied");
     }
 
     public boolean isSunk() {
@@ -77,6 +59,7 @@ public class Cell {
     }
 
     public boolean isHit() {
+        //System.out.println("From Hit "+occupied+" "+value);
         if(occupied && value>0){
             value --;
             return true;
