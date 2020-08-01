@@ -10,37 +10,35 @@ public class BattleGround {
     int numRows;
     int numCols;
 
-    ArrayList<ArrayList<Cell>>Ground;
+    Cell Ground[][];
 
-    BattleGround(int nr,int nc)
+    public BattleGround(int nr,int nc)
     {
 
-        Ground=new ArrayList<>();
+        Ground=new Cell[nr][nc];
        // Ship= new Ship();
         for(int i=0;i<nr;i++)
         {
-            ArrayList<Cell>temp=new ArrayList<>();
             for(int j=0;j<nc;j++)
             {
-                temp.add(new Cell('#',0,"#",false));
+                Ground[i][j]=(new Cell());
             }
-            Ground.add(temp);
         }
     }
 
     public Cell getCurrCell(int row,int col){
-        return Ground.get(row).get(col);
+        return Ground[row][col];
     }
 
     public int getVal(int row,int col)
     {
-        Cell curr=Ground.get(row).get(col);
+        Cell curr=Ground[row][col];
         return curr.value;
 
     }
     public void setVal(int row,int col){
 
-        Cell curr=Ground.get(row).get(col);
+        Cell curr=Ground[row][col];
         curr.value--;
         Ground.get(row).set(col,curr);
 
@@ -91,7 +89,7 @@ public class BattleGround {
             throw new RuntimeException("ship dimension out of bounds");
         }
 
-        if(startingPoint.col + width >= numCols || startingPoint.row + height>= numRows) {
+        if(startingPoint.getCol() + width >= numCols || startingPoint.getRow() + height>= numRows) {
             throw new RuntimeException("ship cannot be placed at this cell");
         }
     }
@@ -104,9 +102,9 @@ public class BattleGround {
         int width = placementRequest.getWidth();
         int height = placementRequest.getHeight();
 
-        for(int i = startingPoint.row; i< height; i++) {
-            for(int j = startingPoint.col; j<width; j++) {
-                Cell cell = Ground.get(i).get(j);
+        for(int i = startingPoint.getRow(); i< height; i++) {
+            for(int j = startingPoint.getCol(); j<width; j++) {
+                Cell cell = Ground[i][j];
 
                 if(cell.isOccupied()) {
                     throw new RuntimeException("cell is occupied so ship can't be placed");

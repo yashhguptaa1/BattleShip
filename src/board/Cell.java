@@ -7,6 +7,15 @@ public class Cell {
     int value;
     boolean occupied;
     Ship ship;
+    int row;
+    int col;
+
+    public Cell ()
+    {
+        this.value = 0;
+        this.occupied = false;
+
+    }
 
     public Cell(int value, boolean occupied, Ship ship) {
         this.value = value;
@@ -34,7 +43,21 @@ public class Cell {
         this.occupied = occupied;
     }
 
+    public int getRow() {
+        return row;
+    }
 
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
 
     public void occupy(int strength) {
         this.occupied = true;
@@ -42,5 +65,6 @@ public class Cell {
 
         System.out.println("cell is being occupied");
     }
+
 }
 

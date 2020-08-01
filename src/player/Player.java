@@ -20,7 +20,7 @@ public class Player implements IPlayer{
 
     BattleGround ground;
 
-    Player(BattleGround bg,HashMap<String,Integer>count,ArrayList<String>guesses)
+    public Player(BattleGround bg)
     {
         this.chanceNumber=0;
         this.ground=bg;
@@ -89,5 +89,10 @@ public class Player implements IPlayer{
     @Override
     public void checkStatus() {
 
+    }
+
+    public void setGuessList(ArrayList<String>guesses)
+    {
+        this.guesses=new ArrayList<>(guesses);
     }
 }
