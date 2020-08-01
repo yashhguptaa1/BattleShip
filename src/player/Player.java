@@ -2,16 +2,20 @@ package player;
 
 
 import board.BattleGround;
+import board.Cell;
+import common.ShipPlacementRequest;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class Player {
+public class Player implements IPlayer{
 
+    int id;
+    String playerName;
     int chanceNumber;
 
-    private HashMap<String,Integer>countShips;
     private ArrayList<String>guesses;
 
     BattleGround ground;
@@ -20,9 +24,6 @@ public class Player {
     {
         this.chanceNumber=0;
         this.ground=bg;
-        this.countShips=new HashMap<>(count);
-        this.guesses=new ArrayList<>(guesses);
-
     }
 
     public int[] getNext()
@@ -68,4 +69,25 @@ public class Player {
         return countShips.size();
     }
 
+    @Override
+    public void placeShips(List<ShipPlacementRequest> requestList) {
+        for(ShipPlacementRequest req: requestList) {
+            ground.placeShip(req);
+        }
+    }
+
+    @Override
+    public void getNextTarget(Cell target) {
+
+    }
+
+    @Override
+    public String checkOutcome(Cell hit) {
+        return null;
+    }
+
+    @Override
+    public void checkStatus() {
+
+    }
 }
