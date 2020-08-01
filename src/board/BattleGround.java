@@ -10,7 +10,9 @@ public class BattleGround {
 
     BattleGround(int nr,int nc)
     {
+
         Ground=new ArrayList<>();
+       // Ship= new Ship();
         for(int i=0;i<nr;i++)
         {
             ArrayList<Cell>temp=new ArrayList<>();

@@ -1,18 +1,21 @@
 package board;
 
+import ship.Ship;
+
 public class Cell {
 
-    char type;
     int value;
-    String startingPoint;
     boolean occupied;
+    Ship ship;
 
-
-    public Cell(char type, int value, String startingPoint, boolean occupied) {
-        this.type = type;
+    public Cell(int value, boolean occupied, Ship ship) {
         this.value = value;
-        this.startingPoint = startingPoint;
         this.occupied = occupied;
+        this.ship = ship;
+    }
+
+    public void addCoordToShip(int rowNum, int colNum) {
+        ship.addCoordToList(rowNum, colNum);
     }
 
     public int getValue() {
@@ -23,14 +26,6 @@ public class Cell {
         this.value = value;
     }
 
-    public String getStartingPoint() {
-        return startingPoint;
-    }
-
-    public void setStartingPoint(String startingPoint) {
-        this.startingPoint = startingPoint;
-    }
-
     public boolean isOccupied() {
         return occupied;
     }
@@ -39,11 +34,6 @@ public class Cell {
         this.occupied = occupied;
     }
 
-    public char getType() {
-        return type;
-    }
 
-    public void setType(char type) {
-        this.type = type;
-    }
 }
+
