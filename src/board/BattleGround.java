@@ -74,7 +74,7 @@ public class BattleGround {
             throw new RuntimeException("ship dimension out of bounds");
         }
 
-        if((startingPoint.getCol()-1) + width >= numCols || (startingPoint.getRow()-1) + height>= numRows) {
+        if((startingPoint.getCol() + width-1) >= numCols || (startingPoint.getRow() + height-1) >= numRows) {
             throw new RuntimeException("ship cannot be placed at this cell");
         }
     }

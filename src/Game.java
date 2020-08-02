@@ -13,12 +13,6 @@ public class Game {
     Player B;
     Player winner;
 
-    Game()
-    {
-
-    }
-
-
     public void gameInit(int nRows, int nCols, List<ShipPlacementRequest> PlacmentsP1,List<ShipPlacementRequest>PlacmentsP2,ArrayList<Cell>allGuessesP1,ArrayList<Cell>allGuessesP2)
     {
         BattleGround bg1=new BattleGround(nRows,nCols);
